@@ -33,7 +33,7 @@ public class ExceptionsHandler extends ResponseEntityExceptionHandler {
 
     @ResponseBody
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<ErrorDto> handleUnhandledException(IllegalArgumentException exception) {
+    public ResponseEntity<ErrorDto> handleIllegalArgumentException(IllegalArgumentException exception) {
 
         logException(exception);
 
@@ -44,9 +44,7 @@ public class ExceptionsHandler extends ResponseEntityExceptionHandler {
 
     @ResponseBody
     @ExceptionHandler(IllegalStateChangeException.class)
-    public ResponseEntity<ErrorDto> handleUnhandledException(IllegalStateChangeException exception) {
-
-        logException(exception);
+    public ResponseEntity<ErrorDto> handleIllegalStateChangeException(IllegalStateChangeException exception) {
 
         return ResponseEntity.status(HttpStatus.FORBIDDEN)
                 .contentType(MediaType.APPLICATION_JSON)

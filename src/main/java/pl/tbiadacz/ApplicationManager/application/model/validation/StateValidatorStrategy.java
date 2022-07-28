@@ -1,4 +1,4 @@
-package pl.tbiadacz.ApplicationManager.application.model;
+package pl.tbiadacz.ApplicationManager.application.model.validation;
 
 import org.springframework.lang.Nullable;
 import pl.tbiadacz.ApplicationManager.application.common.Answer;
@@ -8,5 +8,5 @@ interface StateValidatorStrategy {
 
     boolean isApplicable(ApplicationState newState);
 
-    Answer<String> stateIsAchievable(Application application, ApplicationState newState, @Nullable String reason);
+    Answer<String> stateIsAchievable(ApplicationState currentState, ApplicationState newState, @Nullable String reason);
 }

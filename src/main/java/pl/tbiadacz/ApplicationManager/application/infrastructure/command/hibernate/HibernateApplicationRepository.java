@@ -6,7 +6,7 @@ import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 import pl.tbiadacz.ApplicationManager.application.common.ApplicationId;
 import pl.tbiadacz.ApplicationManager.application.model.Application;
-import pl.tbiadacz.ApplicationManager.application.service.command.ApplicationRepository;
+import pl.tbiadacz.ApplicationManager.application.model.ApplicationRepository;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;

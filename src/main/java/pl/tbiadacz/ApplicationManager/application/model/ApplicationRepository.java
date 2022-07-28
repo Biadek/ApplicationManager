@@ -1,4 +1,4 @@
-package pl.tbiadacz.ApplicationManager.application.service.command;
+package pl.tbiadacz.ApplicationManager.application.model;
 
 import org.hibernate.HibernateException;
 import pl.tbiadacz.ApplicationManager.application.common.ApplicationId;

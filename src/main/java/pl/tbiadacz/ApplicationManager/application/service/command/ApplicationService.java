@@ -4,14 +4,19 @@ import org.springframework.stereotype.Service;
 import pl.tbiadacz.ApplicationManager.application.common.ApplicationId;
 import pl.tbiadacz.ApplicationManager.application.common.IllegalStateChangeException;
 import pl.tbiadacz.ApplicationManager.application.model.Application;
+import pl.tbiadacz.ApplicationManager.application.model.ApplicationRepository;
+import pl.tbiadacz.ApplicationManager.application.model.validation.StateChangeValidator;
 
 @Service
 public class ApplicationService {
 
     private final ApplicationRepository applicationRepository;
+    private final StateChangeValidator stateChangeValidator;
 
-    ApplicationService(ApplicationRepository applicationRepository) {
+    ApplicationService(ApplicationRepository applicationRepository, StateChangeValidator stateChangeValidator) {
+
         this.applicationRepository = applicationRepository;
+        this.stateChangeValidator = stateChangeValidator;
     }
 
     public void createApplication(ApplicationAttributes applicationAttributes) {
@@ -34,7 +39,7 @@ public class ApplicationService {
 
         Application application = getApplication(applicationId);
 
-        application.verify().throwIfFailure(IllegalStateChangeException::new);
+        application.verify(stateChangeValidator).throwIfFailure(IllegalStateChangeException::new);
 
         applicationRepository.update(application);
     }
@@ -43,7 +48,7 @@ public class ApplicationService {
 
         Application application = getApplication(applicationId);
 
-        application.accept().throwIfFailure(IllegalStateChangeException::new);
+        application.accept(stateChangeValidator).throwIfFailure(IllegalStateChangeException::new);
 
         applicationRepository.update(application);
     }
@@ -52,7 +57,7 @@ public class ApplicationService {
 
         Application application = getApplication(applicationId);
 
-        application.reject(rejectionReason).throwIfFailure(IllegalStateChangeException::new);
+        application.reject(rejectionReason, stateChangeValidator).throwIfFailure(IllegalStateChangeException::new);
 
         applicationRepository.update(application);
     }
@@ -61,7 +66,7 @@ public class ApplicationService {
 
         Application application = getApplication(applicationId);
 
-        application.delete(deletionReason).throwIfFailure(IllegalStateChangeException::new);
+        application.delete(deletionReason, stateChangeValidator).throwIfFailure(IllegalStateChangeException::new);
 
         applicationRepository.update(application);
     }
@@ -71,7 +76,7 @@ public class ApplicationService {
 
         Application application = getApplication(applicationId);
 
-        application.publish().throwIfFailure(IllegalStateChangeException::new);
+        application.publish(stateChangeValidator).throwIfFailure(IllegalStateChangeException::new);
 
         applicationRepository.update(application);
     }

@@ -8,7 +8,6 @@ import java.util.Objects;
 
 import static org.springframework.util.StringUtils.hasText;
 import static pl.tbiadacz.ApplicationManager.application.common.ApplicationState.*;
-import static pl.tbiadacz.ApplicationManager.application.model.StateChangeValidator.canChangeState;
 
 @Entity
 public class Application {
@@ -53,44 +52,40 @@ public class Application {
                 );
     }
 
-    public Answer<String> reject(String rejectionReason) {
+    public Answer<String> reject(String rejectionReason, StateValidator validator) {
 
-        return canChangeState(this, REJECTED, rejectionReason)
+        return validator.canChangeState(state, REJECTED, rejectionReason)
                 .ifSuccess(() -> {
                     this.state = REJECTED;
                     this.rejectionReason = rejectionReason;
                 });
     }
 
-    public Answer<String> delete(String deletionReason) {
+    public Answer<String> delete(String deletionReason, StateValidator validator) {
 
-        return canChangeState(this, REJECTED, deletionReason)
+        return validator.canChangeState(state, DELETED, deletionReason)
                 .ifSuccess(() -> {
                     this.state = DELETED;
                     this.rejectionReason = deletionReason;
                 });
     }
 
-    public Answer<String> verify() {
+    public Answer<String> verify(StateValidator validator) {
 
-       return canChangeState(this, VERIFIED, null)
+       return validator.canChangeState(state, VERIFIED, null)
                 .ifSuccess(() -> this.state = VERIFIED);
     }
 
-    public Answer<String> publish() {
-
-        return canChangeState(this, PUBLISHED, null)
+    public Answer<String> publish(StateValidator validator) {
+        //TODO nadaj numer
+        return validator.canChangeState(state, PUBLISHED, null)
                 .ifSuccess(() -> this.state = PUBLISHED);
     }
 
-    public Answer<String> accept() {
+    public Answer<String> accept(StateValidator validator) {
 
-        return canChangeState(this, ACCEPTED, null)
+        return validator.canChangeState(state, ACCEPTED, null)
                 .ifSuccess(() -> this.state = ACCEPTED);
-    }
-
-    ApplicationState getState() {
-        return state;
     }
 
     private Answer<String> canUpdate(String name, String content) {

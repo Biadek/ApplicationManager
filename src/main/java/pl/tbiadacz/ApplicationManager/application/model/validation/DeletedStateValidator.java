@@ -1,11 +1,13 @@
-package pl.tbiadacz.ApplicationManager.application.model;
+package pl.tbiadacz.ApplicationManager.application.model.validation;
 
+import org.springframework.stereotype.Service;
 import pl.tbiadacz.ApplicationManager.application.common.Answer;
 import pl.tbiadacz.ApplicationManager.application.common.ApplicationState;
 
 import static org.springframework.util.StringUtils.hasText;
 import static pl.tbiadacz.ApplicationManager.application.common.ApplicationState.*;
 
+@Service
 class DeletedStateValidator implements StateValidatorStrategy {
 
     @Override
@@ -13,12 +15,12 @@ class DeletedStateValidator implements StateValidatorStrategy {
         return DELETED.equals(newState);
     }
 
-    public Answer<String> stateIsAchievable(Application application, ApplicationState newState, String reason) {
+    public Answer<String> stateIsAchievable(ApplicationState currentState, ApplicationState newState, String reason) {
 
-        if (CREATED.equals(application.getState()) && hasText(reason)) {
+        if (CREATED.equals(currentState) && hasText(reason)) {
             return Answer.success();
         }
 
-        return Answer.failure("Can not change state to" + newState);
+        return Answer.failure("Can not change state to " + newState);
     }
 }
