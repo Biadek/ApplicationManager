@@ -26,7 +26,7 @@ class AcceptedStateValidatorTest {
 
     @ParameterizedTest
     @MethodSource("applicableStates")
-    void shouldBeApplicableForAcceptedState(ApplicationState state, boolean applicableResult) {
+    void shouldBeApplicableForCorrectState(ApplicationState state, boolean applicableResult) {
 
         //given
 

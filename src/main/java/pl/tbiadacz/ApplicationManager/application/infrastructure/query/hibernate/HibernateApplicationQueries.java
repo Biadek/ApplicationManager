@@ -49,8 +49,12 @@ public class HibernateApplicationQueries implements ApplicationQueries {
 
             CriteriaQuery<ApplicationListDto> select = criteria
                 .multiselect(
-                    root.get(D_ID), //TODO pola do rozszerzenia
-                    root.get(D_NAME)
+                    root.get(D_ID),
+                    root.get(D_NAME),
+                    root.get(D_CONTENT),
+                    root.get(D_STATE),
+                    root.get(D_REJECTION_REASON),
+                    root.get(D_UNIQUE_NUMBER)
                 );
 
             addPredicates(name, applicationState, criteriaBuilder, root, select);

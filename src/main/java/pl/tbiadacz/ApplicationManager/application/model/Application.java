@@ -14,7 +14,10 @@ public class Application {
 
     public static final String D_ID = "id";
     public static final String D_NAME = "name";
+    public static final String D_CONTENT = "content";
     public static final String D_STATE = "state";
+    public static final String D_REJECTION_REASON = "rejectionReason";
+    public static final String D_UNIQUE_NUMBER = "uniqueNumber";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,6 +36,8 @@ public class Application {
 
     private String rejectionReason;
 
+    private Long uniqueNumber;
+
     private Application() {}
 
     public Application(String name, String content) {
@@ -40,6 +45,7 @@ public class Application {
         this.content = content;
         this.state = CREATED;
         this.rejectionReason = null;
+        this.uniqueNumber = null;
     }
 
     public Answer<String> update(String name, String content) {
@@ -77,9 +83,11 @@ public class Application {
     }
 
     public Answer<String> publish(StateValidator validator) {
-        //TODO nadaj numer
         return validator.canChangeState(state, PUBLISHED, null)
-                .ifSuccess(() -> this.state = PUBLISHED);
+                .ifSuccess(() -> {
+                    this.state = PUBLISHED;
+                    this.uniqueNumber = id;
+                } );
     }
 
     public Answer<String> accept(StateValidator validator) {
@@ -112,11 +120,12 @@ public class Application {
                 Objects.equals(name, that.name) &&
                 Objects.equals(content, that.content) &&
                 state == that.state &&
-                Objects.equals(rejectionReason, that.rejectionReason);
+                Objects.equals(rejectionReason, that.rejectionReason) &&
+                Objects.equals(uniqueNumber, that.uniqueNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, content, state, rejectionReason);
+        return Objects.hash(id, name, content, state, rejectionReason, uniqueNumber);
     }
 }
