@@ -19,6 +19,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation("org.springdoc:springdoc-openapi-ui:1.6.9")
+	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.23.1'
+	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.8.2'
 }
 
 tasks.named('test') {
