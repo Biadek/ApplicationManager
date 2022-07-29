@@ -3,9 +3,9 @@ package pl.tbiadacz.ApplicationManager.application.application.command;
 import org.springframework.stereotype.Service;
 import pl.tbiadacz.ApplicationManager.application.common.ApplicationId;
 import pl.tbiadacz.ApplicationManager.application.common.IllegalStateChangeException;
-import pl.tbiadacz.ApplicationManager.application.model.Application;
-import pl.tbiadacz.ApplicationManager.application.model.ApplicationRepository;
-import pl.tbiadacz.ApplicationManager.application.model.validation.StateChangeValidator;
+import pl.tbiadacz.ApplicationManager.application.domain.Application;
+import pl.tbiadacz.ApplicationManager.application.domain.ApplicationRepository;
+import pl.tbiadacz.ApplicationManager.application.domain.validation.StateChangeValidator;
 
 @Service
 public class ApplicationService {

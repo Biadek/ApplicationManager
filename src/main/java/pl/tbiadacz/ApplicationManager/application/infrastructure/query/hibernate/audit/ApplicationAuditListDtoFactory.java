@@ -5,7 +5,7 @@ import org.hibernate.envers.RevisionType;
 import org.springframework.stereotype.Service;
 import pl.tbiadacz.ApplicationManager.application.application.query.audit.ApplicationAuditListDto;
 import pl.tbiadacz.ApplicationManager.application.application.query.audit.RevisionChangeType;
-import pl.tbiadacz.ApplicationManager.application.model.Application;
+import pl.tbiadacz.ApplicationManager.application.domain.Application;
 
 import java.sql.Timestamp;
 

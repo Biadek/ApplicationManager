@@ -1,7 +1,8 @@
-package pl.tbiadacz.ApplicationManager.application.model.validation;
+package pl.tbiadacz.ApplicationManager.application.domain.validation;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -12,14 +13,14 @@ import java.util.stream.Stream;
 
 import static pl.tbiadacz.ApplicationManager.application.common.ApplicationState.*;
 
-class AcceptedStateValidatorTest {
+class DeletedStateValidatorTest {
 
-    private static AcceptedStateValidator validator;
+    private static DeletedStateValidator validator;
 
     @BeforeAll
     static void setUp() {
 
-        validator = new AcceptedStateValidator();
+        validator = new DeletedStateValidator();
     }
 
     @ParameterizedTest
@@ -39,8 +40,8 @@ class AcceptedStateValidatorTest {
         return Stream.of(
                 Arguments.of(CREATED, false),
                 Arguments.of(VERIFIED, false),
-                Arguments.of(ACCEPTED, true),
-                Arguments.of(DELETED, false),
+                Arguments.of(ACCEPTED, false),
+                Arguments.of(DELETED, true),
                 Arguments.of(REJECTED, false),
                 Arguments.of(PUBLISHED, false)
         );
@@ -51,9 +52,10 @@ class AcceptedStateValidatorTest {
     void shouldCorrectlyChangeState(ApplicationState currentState, boolean success) {
 
         //given
+        String reason = "reason";
 
         //when
-        Answer<String> answer = validator.stateIsAchievable(currentState, ACCEPTED, null);
+        Answer<String> answer = validator.stateIsAchievable(currentState, DELETED, reason);
 
         //then
         Assertions.assertThat(answer.isSuccess()).isEqualTo(success);
@@ -61,12 +63,26 @@ class AcceptedStateValidatorTest {
 
     private static Stream<Arguments> provideStates() {
         return Stream.of(
-                Arguments.of(CREATED, false),
-                Arguments.of(VERIFIED, true),
+                Arguments.of(CREATED, true),
+                Arguments.of(VERIFIED, false),
                 Arguments.of(ACCEPTED, false),
                 Arguments.of(DELETED, false),
                 Arguments.of(REJECTED, false),
                 Arguments.of(PUBLISHED, false)
         );
+    }
+
+    @Test
+    void shouldRejectEmptyReason() {
+
+        //given
+        ApplicationState currentState = CREATED;
+        String reason = "";
+
+        //when
+        Answer<String> answer = validator.stateIsAchievable(currentState, DELETED, reason);
+
+        //then
+        Assertions.assertThat(answer.isSuccess()).isFalse();
     }
 }

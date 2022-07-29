@@ -1,4 +1,4 @@
-package pl.tbiadacz.ApplicationManager.application.model;
+package pl.tbiadacz.ApplicationManager.application.domain;
 
 import org.hibernate.envers.Audited;
 import pl.tbiadacz.ApplicationManager.application.common.Answer;
@@ -24,7 +24,6 @@ public class Application {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @AttributeOverride(name = D_ID, column = @Column(name = "id"))
     private Long id;
 
     @Column(nullable = false)

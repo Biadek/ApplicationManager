@@ -1,8 +1,8 @@
-package pl.tbiadacz.ApplicationManager.application.model.validation;
+package pl.tbiadacz.ApplicationManager.application.domain.validation;
 
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -13,14 +13,15 @@ import java.util.stream.Stream;
 
 import static pl.tbiadacz.ApplicationManager.application.common.ApplicationState.*;
 
-class RejectedStateValidatorTest {
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+class VerifiedStateValidatorTest {
 
-    private static RejectedStateValidator validator;
+    private VerifiedStateValidator validator;
 
-    @BeforeAll
-    static void setUp() {
+    @BeforeEach
+    void setUp() {
 
-        validator = new RejectedStateValidator();
+        validator = new VerifiedStateValidator();
     }
 
     @ParameterizedTest
@@ -39,10 +40,10 @@ class RejectedStateValidatorTest {
     private static Stream<Arguments> applicableStates() {
         return Stream.of(
                 Arguments.of(CREATED, false),
-                Arguments.of(VERIFIED, false),
+                Arguments.of(VERIFIED, true),
                 Arguments.of(ACCEPTED, false),
                 Arguments.of(DELETED, false),
-                Arguments.of(REJECTED, true),
+                Arguments.of(REJECTED, false),
                 Arguments.of(PUBLISHED, false)
         );
     }
@@ -52,10 +53,9 @@ class RejectedStateValidatorTest {
     void shouldCorrectlyChangeState(ApplicationState currentState, boolean success) {
 
         //given
-        String reason = "reason";
 
         //when
-        Answer<String> answer = validator.stateIsAchievable(currentState, REJECTED, reason);
+        Answer<String> answer = validator.stateIsAchievable(currentState, VERIFIED, null);
 
         //then
         Assertions.assertThat(answer.isSuccess()).isEqualTo(success);
@@ -63,26 +63,12 @@ class RejectedStateValidatorTest {
 
     private static Stream<Arguments> provideStates() {
         return Stream.of(
-                Arguments.of(CREATED, false),
-                Arguments.of(VERIFIED, true),
-                Arguments.of(ACCEPTED, true),
+                Arguments.of(CREATED, true),
+                Arguments.of(VERIFIED, false),
+                Arguments.of(ACCEPTED, false),
                 Arguments.of(DELETED, false),
                 Arguments.of(REJECTED, false),
                 Arguments.of(PUBLISHED, false)
         );
-    }
-
-    @Test
-    void shouldRejectEmptyReason() {
-
-        //given
-        ApplicationState currentState = ACCEPTED;
-        String reason = "";
-
-        //when
-        Answer<String> answer = validator.stateIsAchievable(currentState, REJECTED, reason);
-
-        //then
-        Assertions.assertThat(answer.isSuccess()).isFalse();
     }
 }

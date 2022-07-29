@@ -1,4 +1,4 @@
-package pl.tbiadacz.ApplicationManager.application.model;
+package pl.tbiadacz.ApplicationManager.application.domain;
 
 import org.springframework.lang.Nullable;
 import pl.tbiadacz.ApplicationManager.application.common.Answer;

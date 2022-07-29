@@ -5,8 +5,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 import pl.tbiadacz.ApplicationManager.application.common.ApplicationId;
-import pl.tbiadacz.ApplicationManager.application.model.Application;
-import pl.tbiadacz.ApplicationManager.application.model.ApplicationRepository;
+import pl.tbiadacz.ApplicationManager.application.domain.Application;
+import pl.tbiadacz.ApplicationManager.application.domain.ApplicationRepository;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -14,7 +14,7 @@ import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import java.util.Optional;
 
-import static pl.tbiadacz.ApplicationManager.application.model.Application.D_ID;
+import static pl.tbiadacz.ApplicationManager.application.domain.Application.D_ID;
 
 
 @Repository

@@ -1,4 +1,4 @@
-package pl.tbiadacz.ApplicationManager.application.model;
+package pl.tbiadacz.ApplicationManager.application.domain;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;

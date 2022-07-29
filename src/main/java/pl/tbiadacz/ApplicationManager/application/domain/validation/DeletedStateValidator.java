@@ -1,23 +1,24 @@
-package pl.tbiadacz.ApplicationManager.application.model.validation;
+package pl.tbiadacz.ApplicationManager.application.domain.validation;
 
 import org.springframework.stereotype.Service;
 import pl.tbiadacz.ApplicationManager.application.common.Answer;
 import pl.tbiadacz.ApplicationManager.application.common.ApplicationState;
 
+import static org.springframework.util.StringUtils.hasText;
 import static pl.tbiadacz.ApplicationManager.application.common.ApplicationState.*;
 
 @Service
-class PublishedStateValidator implements StateValidatorStrategy {
+class DeletedStateValidator implements StateValidatorStrategy {
 
     @Override
     public boolean isApplicable(ApplicationState newState) {
-        return PUBLISHED.equals(newState);
+        return DELETED.equals(newState);
     }
 
     @Override
     public Answer<String> stateIsAchievable(ApplicationState currentState, ApplicationState newState, String reason) {
 
-        if (ACCEPTED.equals(currentState)) {
+        if (CREATED.equals(currentState) && hasText(reason)) {
             return Answer.success();
         }
 

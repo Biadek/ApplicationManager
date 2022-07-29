@@ -1,10 +1,10 @@
-package pl.tbiadacz.ApplicationManager.application.model.validation;
+package pl.tbiadacz.ApplicationManager.application.domain.validation;
 
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import pl.tbiadacz.ApplicationManager.application.common.Answer;
 import pl.tbiadacz.ApplicationManager.application.common.ApplicationState;
-import pl.tbiadacz.ApplicationManager.application.model.StateValidator;
+import pl.tbiadacz.ApplicationManager.application.domain.StateValidator;
 
 import java.util.List;
 

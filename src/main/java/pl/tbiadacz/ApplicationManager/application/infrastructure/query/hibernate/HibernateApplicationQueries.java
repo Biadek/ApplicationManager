@@ -8,7 +8,7 @@ import org.springframework.util.StringUtils;
 import pl.tbiadacz.ApplicationManager.application.application.query.ApplicationListDto;
 import pl.tbiadacz.ApplicationManager.application.application.query.ApplicationQueries;
 import pl.tbiadacz.ApplicationManager.application.common.ApplicationState;
-import pl.tbiadacz.ApplicationManager.application.model.Application;
+import pl.tbiadacz.ApplicationManager.application.domain.Application;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -21,7 +21,7 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
-import static pl.tbiadacz.ApplicationManager.application.model.Application.*;
+import static pl.tbiadacz.ApplicationManager.application.domain.Application.*;
 
 
 @Service

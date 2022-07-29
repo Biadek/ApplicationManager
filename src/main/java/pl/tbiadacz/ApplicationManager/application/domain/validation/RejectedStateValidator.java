@@ -1,24 +1,24 @@
-package pl.tbiadacz.ApplicationManager.application.model.validation;
+package pl.tbiadacz.ApplicationManager.application.domain.validation;
 
 import org.springframework.stereotype.Service;
 import pl.tbiadacz.ApplicationManager.application.common.Answer;
 import pl.tbiadacz.ApplicationManager.application.common.ApplicationState;
 
-import static pl.tbiadacz.ApplicationManager.application.common.ApplicationState.CREATED;
-import static pl.tbiadacz.ApplicationManager.application.common.ApplicationState.VERIFIED;
+import static org.springframework.util.StringUtils.hasText;
+import static pl.tbiadacz.ApplicationManager.application.common.ApplicationState.*;
 
 @Service
-class VerifiedStateValidator implements StateValidatorStrategy {
+class RejectedStateValidator implements StateValidatorStrategy {
 
     @Override
     public boolean isApplicable(ApplicationState newState) {
-        return VERIFIED.equals(newState);
+        return REJECTED.equals(newState);
     }
 
     @Override
     public Answer<String> stateIsAchievable(ApplicationState currentState, ApplicationState newState, String reason) {
 
-        if (CREATED.equals(currentState)) {
+        if ((VERIFIED.equals(currentState) || ACCEPTED.equals(currentState)) && hasText(reason)) {
             return Answer.success();
         }
 

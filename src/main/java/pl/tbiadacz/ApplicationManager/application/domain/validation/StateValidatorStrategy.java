@@ -1,4 +1,4 @@
-package pl.tbiadacz.ApplicationManager.application.model.validation;
+package pl.tbiadacz.ApplicationManager.application.domain.validation;
 
 import org.springframework.lang.Nullable;
 import pl.tbiadacz.ApplicationManager.application.common.Answer;

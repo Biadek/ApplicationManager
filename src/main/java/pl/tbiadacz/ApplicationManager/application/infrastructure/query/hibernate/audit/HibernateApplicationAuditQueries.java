@@ -8,7 +8,7 @@ import org.hibernate.envers.query.AuditQuery;
 import org.springframework.stereotype.Service;
 import pl.tbiadacz.ApplicationManager.application.application.query.audit.ApplicationAuditListDto;
 import pl.tbiadacz.ApplicationManager.application.application.query.audit.ApplicationAuditQueries;
-import pl.tbiadacz.ApplicationManager.application.model.Application;
+import pl.tbiadacz.ApplicationManager.application.domain.Application;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
