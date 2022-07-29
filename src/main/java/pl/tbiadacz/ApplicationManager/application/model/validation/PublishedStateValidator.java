@@ -14,7 +14,8 @@ class PublishedStateValidator implements StateValidatorStrategy {
         return PUBLISHED.equals(newState);
     }
 
-   public Answer<String> stateIsAchievable(ApplicationState currentState, ApplicationState newState, String reason) {
+    @Override
+    public Answer<String> stateIsAchievable(ApplicationState currentState, ApplicationState newState, String reason) {
 
         if (ACCEPTED.equals(currentState)) {
             return Answer.success();

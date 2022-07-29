@@ -5,10 +5,10 @@ import org.hibernate.SessionFactory;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import pl.tbiadacz.ApplicationManager.application.application.query.ApplicationListDto;
+import pl.tbiadacz.ApplicationManager.application.application.query.ApplicationQueries;
 import pl.tbiadacz.ApplicationManager.application.common.ApplicationState;
 import pl.tbiadacz.ApplicationManager.application.model.Application;
-import pl.tbiadacz.ApplicationManager.application.service.query.ApplicationListDto;
-import pl.tbiadacz.ApplicationManager.application.service.query.ApplicationQueries;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -25,7 +25,7 @@ import static pl.tbiadacz.ApplicationManager.application.model.Application.*;
 
 
 @Service
-public class HibernateApplicationQueries implements ApplicationQueries {
+class HibernateApplicationQueries implements ApplicationQueries {
 
     private static final int PAGE_SIZE = 10;
 
@@ -41,21 +41,21 @@ public class HibernateApplicationQueries implements ApplicationQueries {
     @Override
     public List<ApplicationListDto> getApplications(int pageNumber, @Nullable String name, @Nullable ApplicationState applicationState) {
 
-        try (Session session = sessionFactory.openSession()){
+        try (Session session = sessionFactory.openSession()) {
 
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
             CriteriaQuery<ApplicationListDto> criteria = criteriaBuilder.createQuery(ApplicationListDto.class);
             Root<Application> root = criteria.from(Application.class);
 
             CriteriaQuery<ApplicationListDto> select = criteria
-                .multiselect(
-                    root.get(D_ID),
-                    root.get(D_NAME),
-                    root.get(D_CONTENT),
-                    root.get(D_STATE),
-                    root.get(D_REJECTION_REASON),
-                    root.get(D_UNIQUE_NUMBER)
-                );
+                    .multiselect(
+                            root.get(D_ID),
+                            root.get(D_NAME),
+                            root.get(D_CONTENT),
+                            root.get(D_STATE),
+                            root.get(D_REJECTION_REASON),
+                            root.get(D_UNIQUE_NUMBER)
+                    );
 
             addPredicates(name, applicationState, criteriaBuilder, root, select);
 
@@ -68,9 +68,9 @@ public class HibernateApplicationQueries implements ApplicationQueries {
     }
 
     private void addPredicates(String name, ApplicationState applicationState, CriteriaBuilder criteriaBuilder, Root<Application> root, CriteriaQuery<ApplicationListDto> select) {
-        
+
         List<Predicate> predicates = new ArrayList<>();
-        
+
         if (StringUtils.hasText(name)) {
             predicates.add(criteriaBuilder.equal(root.get(D_NAME), name));
         }
@@ -80,7 +80,7 @@ public class HibernateApplicationQueries implements ApplicationQueries {
 
         select.where(predicates.toArray(new Predicate[0]));
     }
-    
+
     private Integer getTotalCountOfApplications() {
 
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();

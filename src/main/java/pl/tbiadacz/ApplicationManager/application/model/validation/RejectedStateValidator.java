@@ -15,6 +15,7 @@ class RejectedStateValidator implements StateValidatorStrategy {
         return REJECTED.equals(newState);
     }
 
+    @Override
     public Answer<String> stateIsAchievable(ApplicationState currentState, ApplicationState newState, String reason) {
 
         if ((VERIFIED.equals(currentState) || ACCEPTED.equals(currentState)) && hasText(reason)) {

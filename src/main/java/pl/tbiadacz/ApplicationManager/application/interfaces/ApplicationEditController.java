@@ -2,14 +2,16 @@ package pl.tbiadacz.ApplicationManager.application.interfaces;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.tbiadacz.ApplicationManager.application.application.command.ApplicationService;
 import pl.tbiadacz.ApplicationManager.application.common.ApplicationId;
-import pl.tbiadacz.ApplicationManager.application.service.command.ApplicationService;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
 @RequestMapping("/application")
 class ApplicationEditController {
+
+    private static final String ID_PARAM = "id";
 
     private final ApplicationService applicationService;
 
@@ -18,15 +20,15 @@ class ApplicationEditController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Void> createApplication(@RequestBody ApplicationForm applicationForm) {
+    private ResponseEntity<Void> createApplication(@RequestBody ApplicationForm applicationForm) {
 
-       applicationService.createApplication(applicationForm);
+        applicationService.createApplication(applicationForm);
 
         return ResponseEntity.status(CREATED).build();
     }
 
     @PutMapping("/{id}/update")
-    public ResponseEntity<Void> createApplication(@PathVariable("id") Long applicationId, @RequestBody ApplicationForm applicationForm) {
+    private ResponseEntity<Void> createApplication(@PathVariable(ID_PARAM) Long applicationId, @RequestBody ApplicationForm applicationForm) {
 
         applicationService.updateApplication(applicationForm, ApplicationId.of(applicationId));
 
@@ -34,7 +36,7 @@ class ApplicationEditController {
     }
 
     @PatchMapping("/{id}/verify")
-    public ResponseEntity<Void> verifyApplication(@PathVariable("id") Long applicationId) {
+    private ResponseEntity<Void> verifyApplication(@PathVariable(ID_PARAM) Long applicationId) {
 
         applicationService.verifyApplication(ApplicationId.of(applicationId));
 
@@ -42,7 +44,7 @@ class ApplicationEditController {
     }
 
     @PatchMapping("/{id}/accept")
-    public ResponseEntity<Void> acceptApplication(@PathVariable("id") Long applicationId) {
+    private ResponseEntity<Void> acceptApplication(@PathVariable(ID_PARAM) Long applicationId) {
 
         applicationService.acceptApplication(ApplicationId.of(applicationId));
 
@@ -50,7 +52,7 @@ class ApplicationEditController {
     }
 
     @PatchMapping("/{id}/publish")
-    public ResponseEntity<Void> publishApplication(@PathVariable("id") Long applicationId) {
+    private ResponseEntity<Void> publishApplication(@PathVariable(ID_PARAM) Long applicationId) {
 
         applicationService.publishApplication(ApplicationId.of(applicationId));
 
@@ -58,7 +60,7 @@ class ApplicationEditController {
     }
 
     @PatchMapping("/{id}/reject")
-    public ResponseEntity<Void> rejectApplication(@PathVariable("id") Long applicationId, @RequestBody String rejectionReason) {
+    private ResponseEntity<Void> rejectApplication(@PathVariable(ID_PARAM) Long applicationId, @RequestBody String rejectionReason) {
 
         applicationService.rejectApplication(ApplicationId.of(applicationId), rejectionReason);
 
@@ -66,7 +68,7 @@ class ApplicationEditController {
     }
 
     @DeleteMapping("/{id}/delete")
-    public ResponseEntity<Void> deleteApplication(@PathVariable("id") Long applicationId, @RequestBody String deletionReason) {
+    private ResponseEntity<Void> deleteApplication(@PathVariable(ID_PARAM) Long applicationId, @RequestBody String deletionReason) {
 
         applicationService.deleteApplication(ApplicationId.of(applicationId), deletionReason);
 

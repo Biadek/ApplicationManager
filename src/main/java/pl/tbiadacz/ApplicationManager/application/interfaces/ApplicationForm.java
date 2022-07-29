@@ -1,6 +1,6 @@
 package pl.tbiadacz.ApplicationManager.application.interfaces;
 
-import pl.tbiadacz.ApplicationManager.application.service.command.ApplicationAttributes;
+import pl.tbiadacz.ApplicationManager.application.application.command.ApplicationAttributes;
 
 class ApplicationForm implements ApplicationAttributes {
 

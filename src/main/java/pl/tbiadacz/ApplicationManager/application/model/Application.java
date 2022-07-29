@@ -1,6 +1,8 @@
 package pl.tbiadacz.ApplicationManager.application.model;
 
+import org.hibernate.envers.Audited;
 import pl.tbiadacz.ApplicationManager.application.common.Answer;
+import pl.tbiadacz.ApplicationManager.application.common.ApplicationId;
 import pl.tbiadacz.ApplicationManager.application.common.ApplicationState;
 
 import javax.persistence.*;
@@ -10,6 +12,7 @@ import static org.springframework.util.StringUtils.hasText;
 import static pl.tbiadacz.ApplicationManager.application.common.ApplicationState.*;
 
 @Entity
+@Audited
 public class Application {
 
     public static final String D_ID = "id";
@@ -38,7 +41,8 @@ public class Application {
 
     private Long uniqueNumber;
 
-    private Application() {}
+    private Application() {
+    }
 
     public Application(String name, String content) {
         this.name = name;
@@ -52,9 +56,9 @@ public class Application {
 
         return canUpdate(name, content)
                 .ifSuccess(() -> {
-                        this.name = name;
-                        this.content = content;
-                    }
+                            this.name = name;
+                            this.content = content;
+                        }
                 );
     }
 
@@ -78,7 +82,7 @@ public class Application {
 
     public Answer<String> verify(StateValidator validator) {
 
-       return validator.canChangeState(state, VERIFIED, null)
+        return validator.canChangeState(state, VERIFIED, null)
                 .ifSuccess(() -> this.state = VERIFIED);
     }
 
@@ -87,7 +91,7 @@ public class Application {
                 .ifSuccess(() -> {
                     this.state = PUBLISHED;
                     this.uniqueNumber = id;
-                } );
+                });
     }
 
     public Answer<String> accept(StateValidator validator) {
@@ -109,6 +113,30 @@ public class Application {
         }
 
         return Answer.success();
+    }
+
+    public ApplicationId getId() {
+        return ApplicationId.of(id);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public ApplicationState getState() {
+        return state;
+    }
+
+    public String getRejectionReason() {
+        return rejectionReason;
+    }
+
+    public Long getUniqueNumber() {
+        return uniqueNumber;
     }
 
     @Override

@@ -2,7 +2,6 @@ package pl.tbiadacz.ApplicationManager.application.model;
 
 import org.hibernate.HibernateException;
 import pl.tbiadacz.ApplicationManager.application.common.ApplicationId;
-import pl.tbiadacz.ApplicationManager.application.model.Application;
 
 import java.util.Optional;
 

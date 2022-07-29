@@ -1,4 +1,4 @@
-package pl.tbiadacz.ApplicationManager.application.service;
+package pl.tbiadacz.ApplicationManager.application.application;
 
 import java.io.Serializable;
 import java.util.Objects;

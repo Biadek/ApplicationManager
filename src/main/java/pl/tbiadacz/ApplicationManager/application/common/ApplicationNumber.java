@@ -1,17 +1,13 @@
 package pl.tbiadacz.ApplicationManager.application.common;
 
-import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
 
-@Embeddable
 public class ApplicationNumber implements Serializable {
 
     private static final long serialVersionUID = 1;
 
-    private Long number;
-
-    private ApplicationNumber() {}
+    private final Long number;
 
     private ApplicationNumber(Long number) {
         this.number = number;

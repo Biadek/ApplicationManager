@@ -1,4 +1,4 @@
-package pl.tbiadacz.ApplicationManager.application.service.query;
+package pl.tbiadacz.ApplicationManager.application.application.query;
 
 import org.springframework.lang.Nullable;
 import pl.tbiadacz.ApplicationManager.application.common.ApplicationState;

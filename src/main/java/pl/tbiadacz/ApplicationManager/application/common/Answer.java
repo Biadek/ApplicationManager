@@ -26,11 +26,9 @@ public class Answer<FAILURE> {
         return failure == null;
     }
 
-    public Answer<FAILURE> ifFailure(Consumer<? super FAILURE> action) {
+    public void ifFailure(Consumer<? super FAILURE> action) {
 
         Optional.ofNullable(failure).ifPresent(action);
-
-        return this;
     }
 
     public Answer<FAILURE> ifSuccess(Runnable action) {
@@ -42,9 +40,9 @@ public class Answer<FAILURE> {
         return this;
     }
 
-    public <EXCEPTION extends RuntimeException> Answer<FAILURE> throwIfFailure(Function<FAILURE, EXCEPTION> function) {
+    public <EXCEPTION extends RuntimeException> void throwIfFailure(Function<FAILURE, EXCEPTION> function) {
 
-        return ifFailure(message -> {
+        ifFailure(message -> {
             throw function.apply(message);
         });
     }

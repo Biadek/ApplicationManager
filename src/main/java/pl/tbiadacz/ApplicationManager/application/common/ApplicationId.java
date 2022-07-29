@@ -1,17 +1,13 @@
 package pl.tbiadacz.ApplicationManager.application.common;
 
-import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
 
-@Embeddable
 public class ApplicationId implements Serializable {
 
     private static final long serialVersionUID = 1;
 
-    private Long id;
-
-    private ApplicationId() {}
+    private final Long id;
 
     private ApplicationId(Long id) {
         this.id = id;

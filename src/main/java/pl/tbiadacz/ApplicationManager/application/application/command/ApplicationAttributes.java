@@ -1,4 +1,4 @@
-package pl.tbiadacz.ApplicationManager.application.service.command;
+package pl.tbiadacz.ApplicationManager.application.application.command;
 
 public interface ApplicationAttributes {
 

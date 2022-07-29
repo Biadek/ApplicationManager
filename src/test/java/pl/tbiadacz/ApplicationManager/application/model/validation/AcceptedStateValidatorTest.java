@@ -1,8 +1,7 @@
 package pl.tbiadacz.ApplicationManager.application.model.validation;
 
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -13,13 +12,12 @@ import java.util.stream.Stream;
 
 import static pl.tbiadacz.ApplicationManager.application.common.ApplicationState.*;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class AcceptedStateValidatorTest {
 
-    private AcceptedStateValidator validator;
+    private static AcceptedStateValidator validator;
 
-    @BeforeEach
-    void setUp() {
+    @BeforeAll
+    static void setUp() {
 
         validator = new AcceptedStateValidator();
     }

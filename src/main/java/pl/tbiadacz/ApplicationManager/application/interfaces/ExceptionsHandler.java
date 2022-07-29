@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import pl.tbiadacz.ApplicationManager.application.common.IllegalStateChangeException;
-import pl.tbiadacz.ApplicationManager.application.service.ErrorDto;
+import pl.tbiadacz.ApplicationManager.application.application.ErrorDto;
 
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @ControllerAdvice
-public class ExceptionsHandler extends ResponseEntityExceptionHandler {
+class ExceptionsHandler extends ResponseEntityExceptionHandler {
 
     private static final int LOGGING_LIMIT = 5;
     private static final Logger logger = LoggerFactory.getLogger(ExceptionsHandler.class);
@@ -58,7 +58,7 @@ public class ExceptionsHandler extends ResponseEntityExceptionHandler {
                 .map(StackTraceElement::toString)
                 .collect(Collectors.joining("\n"));
 
-        String message = exception.getMessage() + "\n" + stackTrace;
+        String message = String.format("%s%n%s", exception.getMessage(), stackTrace);
 
         logger.error(message);
     }

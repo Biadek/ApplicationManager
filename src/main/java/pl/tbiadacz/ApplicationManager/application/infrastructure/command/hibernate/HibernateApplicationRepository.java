@@ -18,7 +18,7 @@ import static pl.tbiadacz.ApplicationManager.application.model.Application.D_ID;
 
 
 @Repository
-public class HibernateApplicationRepository implements ApplicationRepository {
+class HibernateApplicationRepository implements ApplicationRepository {
 
     private final SessionFactory sessionFactory;
 
@@ -30,11 +30,12 @@ public class HibernateApplicationRepository implements ApplicationRepository {
     @Transactional
     public void add(Application application) {
 
-      try (Session session = sessionFactory.openSession()) {
-          Transaction transaction = session.beginTransaction();
-          session.save(application);
-          transaction.commit();
-      }
+        try (Session session = sessionFactory.openSession()) {
+
+            Transaction transaction = session.beginTransaction();
+            session.save(application);
+            transaction.commit();
+        }
     }
 
     @Override
@@ -42,6 +43,7 @@ public class HibernateApplicationRepository implements ApplicationRepository {
     public void update(Application application) {
 
         try (Session session = sessionFactory.openSession()) {
+
             Transaction transaction = session.beginTransaction();
             session.update(application);
             transaction.commit();

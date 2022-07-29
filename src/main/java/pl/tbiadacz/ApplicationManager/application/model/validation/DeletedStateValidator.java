@@ -15,6 +15,7 @@ class DeletedStateValidator implements StateValidatorStrategy {
         return DELETED.equals(newState);
     }
 
+    @Override
     public Answer<String> stateIsAchievable(ApplicationState currentState, ApplicationState newState, String reason) {
 
         if (CREATED.equals(currentState) && hasText(reason)) {
